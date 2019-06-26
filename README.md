@@ -6,10 +6,10 @@ Data Wrangling
 Exploratory Data Analysis
 Conclusions
 
-Introduction
+# Introduction
 This dataset collects information from 100k medical appointments in Brazil and is focused on the question of whether or not patients show up for their appointment. A number of characteristics about the patient are included in each row. ScheduledDay, tells us on what day the patient set up their appointment. ‘Neighborhood’ indicates the location of the hospital. ‘Scholarship’ indicates whether or not the patient is enrolled in Brasilian welfare program Bolsa Família. the data set is provided by kaggel. throughout this project we are trying to answer these questions by exploring the dataset and also the connections among variables.
 
-Questions:
+# Questions:
 (1)Are patient who missed an appointmant befor more likly to miss the next appointment? (2)What is the no-show proportion? (3)Are no-show appointments associated with a certain gender? (4)How are weekdays affecting patients absence? (5)How is age affecting patients absence?
 
 In order to understand the dataset we will call shape, info and describe.
@@ -25,7 +25,7 @@ We have deleted the row where -1 value in age.
 To make the data more Understandable and easy to deal with, We have changed the No, yes values in the data set to 0,1.
 We have added a new column AppointmentsMissed which sums how many has the patient been absent. I would like to see if there is a relation between NoShow and AppointmentsMissed.
 
-#Exploratory Data Analysis
+# Exploratory Data Analysis
 Research Question 1 (Are patient who missed an appointmant befor more likly to miss the next appointment?)
 Since the correlation is 0.58 , that means there is a possitive relationship between NoShow and AppointmentsMissed
 Research Question 2 (What is the no-show proportion?)
