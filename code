@@ -1,0 +1,67 @@
+#import libraries
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+%matplotlib inline
+df=pd.read_csv('noshowappointments.csv')#open data st
+df.head(10)#exploring the data
+#changing data type and column name 
+df.rename(columns={'No-show':'NoShow'},inplace=True)
+# declaring a function 
+def changeToTime (c):
+    df[c]=pd.to_datetime(df[c])
+    
+# calling the function    
+changeToTime('AppointmentDay') 
+changeToTime('ScheduledDay')
+
+
+df['hour_scheduled']=df['ScheduledDay'].dt.hour
+
+df['day_scheduled']=df['ScheduledDay'].dt.weekday_name
+df['day_appointment']=df['AppointmentDay'].dt.weekday_name
+
+df.info()
+df.query('Age == -1')
+df.drop(99832,axis=0,inplace=True)
+df.describe()
+df.replace(('Yes', 'No'), (1, 0), inplace=True)
+df['AppointmentsMissed'] =df.groupby('PatientId')['NoShow'].apply(lambda x: x.cumsum())
+
+df.query('AppointmentsMissed > 1 ')
+#Research Question 1 (Are patient who missed an appointmant befor more likly to miss the next appointment?)
+df.corr()
+#Research Question 2 (What is the no-show proportion?)
+# yes means patient no show, No means patient show.
+df['NoShow'].value_counts()
+df_yes=df.query('NoShow == 1')
+df_no=df.query('NoShow == 0')
+ff1=(df_yes.shape[0]/df.shape[0])*100 # no show percentage
+ff2=(df_no.shape[0]/df.shape[0])*100 # no show percentage
+
+
+labels = ['no show', 'show']
+sizes = [ff1, ff2]
+explode = (0.1,0) # only "explode" the 1st slice 
+
+fig1, ax1 = plt.subplots()
+ax1.pie(sizes, explode=explode, labels=labels, autopct='%1.1f%%',
+        shadow=True, startangle=90)
+ax1.axis('equal') 
+plt.title('NoShow Proportion')
+plt.show()
+#Research Question 3 (Are no-show appointments associated with a certain gender?)
+female_prop=df_yes.query('Gender =="F"')
+male_prop=df_yes.query('Gender =="M"')
+g1=female_prop.shape[0]/df_yes.shape[0]
+g2=male_prop.shape[0]/df_yes.shape[0]
+labels = 'F','M'
+sizes = [g1,g2]
+explode = (0.1,0) # only "explode" the 1st slice 
+
+fig1, ax1 = plt.subplots()
+ax1.pie(sizes, explode=explode, labels=labels, autopct='%1.1f%%',
+        shadow=True, startangle=90)
+ax1.axis('equal') 
+plt.title('Absent patients Gender Proportion')
+plt.show()
