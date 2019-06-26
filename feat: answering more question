@@ -1,0 +1,7 @@
+#feat: answering more question
+
+
+inorder to understand the dataset more, I answered 2 more questions.
+1)Research Question 4 ( How are weekdays affecting patients absence?)
+2)Research Question 5 ( How is age affecting patients absence?)
+using  matplotlib.pyplot I visulized them. 
